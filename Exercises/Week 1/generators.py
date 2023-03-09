@@ -3,7 +3,7 @@ import types
 from typing import Generator
 
 
-def fib() -> Generator[int]:
+def fib() -> Generator[int, None, None]:
     a = 1
     b = 1
     yield a
