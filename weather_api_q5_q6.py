@@ -6,6 +6,11 @@ import requests
 
 
 class WeatherAPI:
+    """
+    A class that uses the WeatherAPI to fetch current and forecast data. WeatherData's API key is required to initialize the
+    WeatherAPI object.
+    """
+
     def __init__(self, api_key: str) -> None:
         self.api_key = api_key
         self.base_url = "http://api.weatherapi.com/v1/"
@@ -13,6 +18,11 @@ class WeatherAPI:
     def get_current_weather_data(
         self, us_zip_code: str = None, city: str = None, get_air_quality: bool = True
     ) -> dict:
+        """
+        Returns the current data for the provided location. One of us_zip_code or city is required.
+        Other params:
+        get_air_quality - Boolean field to get air quality
+        """
         data = self.request_data(
             "current.json",
             us_zip_code,
@@ -46,6 +56,11 @@ class WeatherAPI:
     def display_current_weather_data(
         self, us_zip_code: str = None, city: str = None, get_air_quality: bool = True
     ) -> None:
+        """
+        Displays the current data for the provided location. One of us_zip_code or city is required.
+        Other params:
+        get_air_quality - Boolean field to get air quality
+        """
         print(
             json.dumps(
                 self.get_current_weather_data(us_zip_code, city, get_air_quality),
@@ -61,6 +76,13 @@ class WeatherAPI:
         hour: int = None,
         get_air_quality: bool = True,
     ) -> dict:
+        """
+        Returns the forecast data for the provided location. One of us_zip_code or city is required.
+        Other params:
+        days - No of days to get forecast for
+        hour - Hour to get forecast for
+        get_air_quality - Boolean field to get air quality
+        """
         data = self.request_data(
             "forecast.json",
             us_zip_code,
@@ -124,6 +146,13 @@ class WeatherAPI:
         hour: int = None,
         get_air_quality: bool = True,
     ) -> None:
+        """
+        Displays the forecast data for the provided location. One of us_zip_code or city is required.
+        Other params:
+        days - No of days to get forecast for
+        hour - Hour to get forecast for
+        get_air_quality - Boolean field to get air quality
+        """
         print(
             json.dumps(
                 self.get_forecast_weather_data(
@@ -134,6 +163,9 @@ class WeatherAPI:
         )
 
     def get_air_quality(self, pm2_5: float) -> str | None:
+        """
+        A helper function to get air quality based on pm2.5 value provided.
+        """
         if pm2_5 is None:
             return None
         if pm2_5 > 250:
@@ -157,6 +189,9 @@ class WeatherAPI:
         hour: int,
         get_air_quality: bool,
     ) -> dict:
+        """
+        Requests data from the API based on given parameters and returns response as a dict.
+        """
         if not us_zip_code and not city:
             raise Exception("us_zip_code or city is required.")
 
@@ -172,6 +207,9 @@ class WeatherAPI:
         ).json()
 
     def format_datetime(self, date_time):
+        """
+        Formats the datetime sent from the API.
+        """
         if date_time:
             date_time = datetime.strptime(date_time, "%Y-%m-%d %H:%M").strftime(
                 "%Y-%m-%d %I:%M %p"
