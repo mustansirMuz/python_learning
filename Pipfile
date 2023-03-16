@@ -8,6 +8,9 @@ isort = "*"
 black = "*"
 pre-commit = "*"
 requests = "*"
+sqlalchemy = "*"
+psycopg2 = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
