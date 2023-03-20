@@ -6,13 +6,7 @@ from datetime import datetime
 
 from constants import app_constants, weather_api_constants
 from dotenv import load_dotenv
-from models import (
-    Base,
-    CurrentWeather,
-    ForecastWeatherDay,
-    ForecastWeatherHour,
-    Location,
-)
+from models import Base, CurrentWeather, ForecastWeather, Location
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 from WeatherAPI import WeatherAPICurrent, WeatherAPIForecast
@@ -139,32 +133,10 @@ if __name__ == "__main__":
                 )
             else:
                 for day in data.get(app_constants.FORECAST_DAYS, []):
-                    get_or_create(
-                        session,
-                        ForecastWeatherDay,
-                        location=location,
-                        date_time=datetime.strptime(
-                            day.get(app_constants.FORECAST_DATE),
-                            app_constants.DATE_FORMAT,
-                        ),
-                        max_temp_c=day.get(app_constants.MAX_TEMP_C),
-                        min_temp_c=day.get(app_constants.MIN_TEMP_C),
-                        condition=day.get(app_constants.CONDITION),
-                        max_wind_mph=day.get(app_constants.MAX_WIND_MPH),
-                        humidity_percent=day.get(app_constants.HUMIDITY_PERCENT),
-                        visibility_km=day.get(app_constants.VISIBILITY_KM),
-                        probability_of_rain_percent=day.get(
-                            app_constants.CHANCE_OF_RAIN
-                        ),
-                        probability_of_snow_percent=day.get(
-                            app_constants.CHANCE_OF_SNOW
-                        ),
-                        air_quality=day.get(app_constants.AIR_QUALITY),
-                    )
                     for hour in day.get(app_constants.HOURS, []):
                         get_or_create(
                             session,
-                            ForecastWeatherHour,
+                            ForecastWeather,
                             location=location,
                             date_time=datetime.strptime(
                                 hour.get(app_constants.DATE_TIME),

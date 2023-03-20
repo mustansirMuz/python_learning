@@ -26,53 +26,29 @@ class Weather:
     id: Mapped[int] = mapped_column(primary_key=True)
     location_id: Mapped[int] = mapped_column(ForeignKey("location.id"), nullable=False)
     date_time: Mapped[datetime] = mapped_column(nullable=False)
+    temp_c: Mapped[float]
     condition: Mapped[str]
     visibility_km: Mapped[float]
     humidity_percent: Mapped[float]
-    air_quality: Mapped[str]
-    __table_args__ = (UniqueConstraint("location_id", "date_time"),)
-
-
-class WeatherAttributes:
-    @declared_attr.directive
-    def __tablename__(cls) -> str:
-        return cls.__name__.lower()
-
-    temp_c: Mapped[float]
     realfeel_c: Mapped[float]
     wind_speed_mph: Mapped[float]
     wind_pressure_in: Mapped[float]
     cloud_cover_percent: Mapped[float]
+    air_quality: Mapped[str] = mapped_column(nullable=True)
+    __table_args__ = (UniqueConstraint("location_id", "date_time"),)
 
 
-class WeatherAttributesProbability:
-    @declared_attr.directive
-    def __tablename__(cls) -> str:
-        return cls.__name__.lower()
-
-    probability_of_rain_percent: Mapped[float]
-    probability_of_snow_percent: Mapped[float]
-
-
-class CurrentWeather(Base, Weather, WeatherAttributes):
+class CurrentWeather(Base, Weather):
     __tablename__ = "current_weather"
 
 
-class ForecastWeatherDay(Base, Weather, WeatherAttributesProbability):
-    __tablename__ = "forecast_weather_day"
-
-    max_temp_c: Mapped[float]
-    min_temp_c: Mapped[float]
-    max_wind_mph: Mapped[float]
-
-
-class ForecastWeatherHour(
-    Base, Weather, WeatherAttributes, WeatherAttributesProbability
-):
-    __tablename__ = "forecast_weather_hour"
+class ForecastWeather(Base, Weather):
+    __tablename__ = "forecast_weather"
 
     wind_gust_mph: Mapped[float]
     dew_point_c: Mapped[float]
+    probability_of_rain_percent: Mapped[float]
+    probability_of_snow_percent: Mapped[float]
 
 
 class Location(Base):
