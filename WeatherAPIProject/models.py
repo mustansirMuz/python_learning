@@ -8,6 +8,7 @@ from sqlalchemy.orm import (
     mapped_column,
     relationship,
 )
+from sqlalchemy_serializer import SerializerMixin
 
 
 class Base(DeclarativeBase):
@@ -38,11 +39,11 @@ class Weather:
     __table_args__ = (UniqueConstraint("location_id", "date_time"),)
 
 
-class CurrentWeather(Base, Weather):
+class CurrentWeather(Base, Weather, SerializerMixin):
     __tablename__ = "current_weather"
 
 
-class ForecastWeather(Base, Weather):
+class ForecastWeather(Base, Weather, SerializerMixin):
     __tablename__ = "forecast_weather"
 
     wind_gust_mph: Mapped[float]
@@ -51,7 +52,7 @@ class ForecastWeather(Base, Weather):
     probability_of_snow_percent: Mapped[float]
 
 
-class Location(Base):
+class Location(Base, SerializerMixin):
     __tablename__ = "location"
 
     id: Mapped[int] = mapped_column(primary_key=True)

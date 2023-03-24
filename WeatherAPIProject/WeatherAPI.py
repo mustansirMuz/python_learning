@@ -66,7 +66,7 @@ class WeatherAPI:
         if not us_zip_code and not city:
             raise Exception("us_zip_code or city is required.")
 
-        return requests.get(
+        data = requests.get(
             f"{self.base_url}{endpoint}",
             params={
                 "key": self.api_key,
@@ -75,6 +75,9 @@ class WeatherAPI:
                 **kwargs,
             },
         ).json()
+        if not data.get(weather_api_constants.LOCATION):
+            raise Exception("Invalid city or zip code provided.")
+        return data
 
 
 class WeatherAPICurrent(WeatherAPI):
