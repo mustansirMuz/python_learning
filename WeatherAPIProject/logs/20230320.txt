@@ -1,0 +1,15 @@
+03/20/2023 15:42:51 Requesting weather data with params: type = current, us_zip = None, city = Karachi, get_aqi = None, days = None, hour = None, display_only = None,
+03/20/2023 15:42:51 Connecting to database...
+03/20/2023 15:42:51 Database Connected.
+03/20/2023 15:42:51 Saving location: Karachi to DB
+03/20/2023 15:42:51 Saving weather data of type current to DB
+03/20/2023 15:43:46 Requesting weather data with params: type = current, us_zip = None, city = Karachi, get_aqi = None, days = None, hour = None, display_only = None,
+03/20/2023 15:43:46 Connecting to database...
+03/20/2023 15:43:46 Database Connected.
+03/20/2023 15:43:46 Saving location: Karachi to DB
+03/20/2023 15:43:46 Saving weather data of type current to DB
+03/20/2023 15:44:04 Requesting weather data with params: type = forecast, us_zip = None, city = Karachi, get_aqi = None, days = 2, hour = None, display_only = None,
+03/20/2023 15:44:05 Connecting to database...
+03/20/2023 15:44:05 Database Connected.
+03/20/2023 15:44:05 Saving location: Karachi to DB
+03/20/2023 15:44:05 Saving weather data of type current to DB

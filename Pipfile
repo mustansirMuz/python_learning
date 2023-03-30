@@ -4,6 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+isort = "*"
+black = "*"
+pre-commit = "*"
+requests = "*"
+sqlalchemy = "*"
+psycopg2 = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
