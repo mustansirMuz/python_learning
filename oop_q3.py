@@ -29,7 +29,7 @@ class Rectange(Shape):
     def get_parameter(self) -> float:
         """Returns the parameter of the rectangle."""
 
-        return self.length + self.width
+        return 2 * (self.length + self.width)
 
     def get_area(self) -> float:
         """Returns the area of the rectangle."""
